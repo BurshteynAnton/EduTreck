@@ -12,8 +12,8 @@ public class ContactController implements ContactService {
     final ContactService contactService;
 
     @PostMapping
-    public Boolean addNewContact(@RequestBody AddNewContactDto addNewContactDto) {
-        return contactService.addNewContact(addNewContactDto);
+    public Boolean addNewContact(@RequestBody ContactDto contactDto) {
+        return contactService.addNewContact(contactDto);
     }
 
     @PostMapping("/{id}")
