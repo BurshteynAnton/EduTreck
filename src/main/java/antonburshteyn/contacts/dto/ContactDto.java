@@ -3,6 +3,7 @@ package antonburshteyn.contacts.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Singular;
 
 import java.util.List;
 
@@ -18,5 +19,6 @@ public class ContactDto {
     String course;
     String source;
     String status;
+    @Singular
     List<AddCommentToContactDto> contactComments;
 }

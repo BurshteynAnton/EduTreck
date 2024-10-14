@@ -1,9 +1,15 @@
 package antonburshteyn.students.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 
 import java.util.List;
 
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class StudentDto {
     String studentId;
     String name;

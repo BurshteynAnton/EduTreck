@@ -4,7 +4,7 @@ import antonburshteyn.lecturers.dto.CommentDto;
 import antonburshteyn.students.dto.*;
 
 public interface StudentService {
-    Boolean addNewStudent(AddNewStudentDto addNewStudentDto);
+    Boolean addNewStudent(StudentDto studentDto);
 
     StudentDto getStudentsById(String id);
 

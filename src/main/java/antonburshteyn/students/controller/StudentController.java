@@ -1,7 +1,6 @@
 package antonburshteyn.students.controller;
 
 import antonburshteyn.lecturers.dto.CommentDto;
-import antonburshteyn.students.dto.AddNewStudentDto;
 import antonburshteyn.students.dto.StudentDto;
 import antonburshteyn.students.dto.UpdateSudentByIdDto;
 import antonburshteyn.students.service.StudentService;
@@ -16,8 +15,8 @@ public class StudentController {
     final StudentService studentService;
 
     @PostMapping
-    public Boolean addNewStudent(@RequestBody AddNewStudentDto addNewStudentDto) {
-        return studentService.addNewStudent(addNewStudentDto);
+    public Boolean addNewStudent(@RequestBody StudentDto studentDto) {
+        return studentService.addNewStudent(studentDto);
     }
 
     @GetMapping("/{id}")

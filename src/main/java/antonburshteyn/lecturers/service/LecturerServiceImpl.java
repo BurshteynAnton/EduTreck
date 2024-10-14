@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class LecturerServiceImpl implements LecturerService{
 
     @Override
-    public Boolean addNewLecture(AddNewLectureDto addNewLectureDto) {
+    public Boolean addNewLecture(LectureDto lectureDto) {
         return null;
     }
 

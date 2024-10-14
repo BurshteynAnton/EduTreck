@@ -1,7 +1,6 @@
 package antonburshteyn.students.service;
 
 import antonburshteyn.lecturers.dto.CommentDto;
-import antonburshteyn.students.dto.AddNewStudentDto;
 import antonburshteyn.students.dto.StudentDto;
 import antonburshteyn.students.dto.UpdateSudentByIdDto;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ public class StudentServiceImpl implements StudentService{
 
 
     @Override
-    public Boolean addNewStudent(AddNewStudentDto addNewStudentDto) {
+    public Boolean addNewStudent(StudentDto studentDto) {
         return null;
     }
 

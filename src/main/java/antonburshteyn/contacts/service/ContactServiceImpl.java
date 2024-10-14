@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ContactServiceImpl implements ContactService{
     @Override
-    public Boolean addNewContact(AddNewContactDto addNewContactDto) {
+    public Boolean addNewContact(ContactDto contactDto) {
         return null;
     }
 

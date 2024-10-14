@@ -3,7 +3,7 @@ package antonburshteyn.contacts.service;
 import antonburshteyn.contacts.dto.*;
 
 public interface ContactService {
-    Boolean addNewContact(AddNewContactDto addNewContactDto);
+    Boolean addNewContact(ContactDto contactDto);
 
     Boolean unarchiveContact(String id);
 

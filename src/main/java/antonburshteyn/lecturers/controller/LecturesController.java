@@ -1,6 +1,5 @@
 package antonburshteyn.lecturers.controller;
 
-import antonburshteyn.lecturers.dto.AddNewLectureDto;
 import antonburshteyn.lecturers.dto.CommentDto;
 import antonburshteyn.lecturers.dto.LectureDto;
 import antonburshteyn.lecturers.dto.UpdateLecturesByIdDto;
@@ -16,8 +15,8 @@ public class LecturesController {
     final LecturerService lecturerService;
 
     @PostMapping
-    public Boolean addNewLecture(@RequestBody AddNewLectureDto addNewLectureDto) {
-        return lecturerService.addNewLecture(addNewLectureDto);
+    public Boolean addNewLecture(@RequestBody LectureDto lectureDto) {
+        return lecturerService.addNewLecture(lectureDto);
     }
 
     @PostMapping("/{id}/comment")
