@@ -3,7 +3,11 @@ package antonburshteyn.groups.service;
 import antonburshteyn.groups.dto.AddReminderDto;
 import antonburshteyn.groups.dto.GroupDto;
 import antonburshteyn.groups.dto.UpdateGroupByIdDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService{
     @Override
     public Boolean addNewGroup(GroupDto groupDto) {
