@@ -1,0 +1,47 @@
+#server:
+#  error:
+#    include-message: always
+#    include-binding-errors: always
+#
+#spring:
+#  datasource:
+#    password: 12121212
+#    url: jdbc:postgresql://localhost:5432/edutreck
+#    username: postgres
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        format_sql: true
+#    show-sql: true
+#
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  datasource:
+    password: 12121212
+    url: jdbc:postgresql://localhost:5432/edutreck
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+logging:
+  level:
+    root: INFO  # Общие логи
+    org.springframework.web: DEBUG  # Логи для запросов Spring MVC
+    org.hibernate.SQL: DEBUG  # Логи SQL-запросов
+    org.hibernate.type: TRACE  # Логи типов данных и значений

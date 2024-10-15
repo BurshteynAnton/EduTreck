@@ -4,7 +4,7 @@ import antonburshteyn.authentication.dto.RegisterDto;
 import antonburshteyn.authentication.dto.UserDto;
 
 public interface AuthService {
-    Boolean register (RegisterDto registerDto);
+    UserDto register (RegisterDto registerDto);
 
     UserDto login (String login);
 
