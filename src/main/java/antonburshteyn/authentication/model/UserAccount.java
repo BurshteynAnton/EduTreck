@@ -44,7 +44,7 @@ public class UserAccount implements UserDetails {
      private Set<Role> roles = new HashSet<>();
 
      public UserAccount(String userName, String password, String name, String surname,
-                        String phoneNumber, String email, Set<Role> roles) {
+                        String phoneNumber, String email) {
           this.userName = userName;
           this.password = password;
           this.name = name;
@@ -68,6 +68,13 @@ public class UserAccount implements UserDetails {
 
      @Override
      public String getUsername() {
-          return email;
+          return userName;
+     }
+
+     public boolean addRole(String role) {
+          return roles.add(Role.valueOf(role.toUpperCase()));
+     }
+     public boolean removeRole(String role) {
+          return roles.remove(Role.valueOf(role.toUpperCase()));
      }
 }

@@ -6,9 +6,9 @@ import antonburshteyn.authentication.dto.UserDto;
 public interface AuthService {
     UserDto register (RegisterDto registerDto);
 
-    UserDto login (String login);
+    UserDto login (String userName, String password);
 
-    UserDto deleteUser (String userId);
+    UserDto deleteUser (Long userId);
 
     UserDto updateUser(String userId);
 

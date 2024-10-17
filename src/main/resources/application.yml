@@ -43,5 +43,8 @@ logging:
   level:
     root: INFO  # Общие логи
     org.springframework.web: DEBUG  # Логи для запросов Spring MVC
+    org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG  # Логи SQL-запросов
     org.hibernate.type: TRACE  # Логи типов данных и значений
+    org.hibernate.event: DEBUG  # Логи для Hibernate-событий (включая удаление)
+    org.hibernate.engine.transaction: DEBUG

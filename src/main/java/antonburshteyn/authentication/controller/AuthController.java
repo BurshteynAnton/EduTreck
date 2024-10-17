@@ -1,5 +1,6 @@
 package antonburshteyn.authentication.controller;
 
+import antonburshteyn.authentication.dto.LoginDto;
 import antonburshteyn.authentication.dto.RegisterDto;
 import antonburshteyn.authentication.dto.UserDto;
 import antonburshteyn.authentication.service.AuthService;
@@ -18,13 +19,13 @@ public class AuthController {
         return authService.register(registerDto);
     }
 
-    @GetMapping("/login")
-    public UserDto login(@RequestParam String login) {
-        return authService.login(login);
+    @PostMapping("/login")
+    public UserDto login(@RequestBody LoginDto loginDto) {
+        return authService.login(loginDto.getUsername(), loginDto.getPassword());
     }
 
     @DeleteMapping("/user/{userId}")
-    public UserDto deleteUser(@PathVariable String userId) {
+    public UserDto deleteUser(@PathVariable Long userId) {
         return authService.deleteUser(userId);
     }
 
