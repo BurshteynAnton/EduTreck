@@ -20,5 +20,7 @@ public class ContactDto {
     String source;
     String status;
     @Singular
-    List<AddCommentToContactDto> contactComments;
+    List<AddCommentToContactDto> comments;
+    @Singular
+    List<ReminderDto> reminders;
 }

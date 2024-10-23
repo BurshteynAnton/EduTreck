@@ -14,7 +14,7 @@ import java.util.Set;
 //@NoArgsConstructor
 @EqualsAndHashCode(of = "userName")
 @Entity
-@Table(name = "UserAccount")
+@Table(name = "UserAccounts")
 public class UserAccount implements Serializable {
 
      @Id

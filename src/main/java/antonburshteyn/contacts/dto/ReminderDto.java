@@ -4,13 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddCommentToContactDto {
-    LocalDateTime date;
-    String text;
-    String author;
+@Getter
+public class ReminderDto {
+    String reminder;
 }

@@ -16,14 +16,14 @@ public class ContactController implements ContactService {
         return contactService.addNewContact(contactDto);
     }
 
-    @PostMapping("/{id}")
-    public Boolean unarchiveContact(@PathVariable String id) {
-        return contactService.unarchiveContact(id);
+    @PostMapping("/{contactId}")
+    public Boolean unarchiveContact(@PathVariable Long contactId) {
+        return contactService.unarchiveContact(contactId);
     }
 
-    @GetMapping("/{email}")
-    public ContactDto getContactById(@PathVariable String email) {
-        return contactService.getContactById(email);
+    @GetMapping("/{contactId}")
+    public ContactDto getContactById(@PathVariable Long contactId) {
+        return contactService.getContactById(contactId);
     }
 
     @GetMapping("/{size}/{page}")
@@ -51,38 +51,39 @@ public class ContactController implements ContactService {
         return contactService.getByStatus(status);
     }
 
-   @PutMapping("/{email}")
-    public Boolean updateContactById(@PathVariable String email,@RequestBody UpdateCommentInContactDto updateCommentInContactDto) {
-        return contactService.updateContactById(email, updateCommentInContactDto);
+   @PutMapping("/{contactId}")
+    public Boolean updateContactById(@PathVariable Long contactId,@RequestBody UpdateCommentInContactDto updateCommentInContactDto) {
+        return contactService.updateContactById(contactId, updateCommentInContactDto);
     }
 
-    @PostMapping("/{email}/comment")
-    public Boolean addCommentToContact(@PathVariable String email,@RequestBody AddCommentToContactDto addCommentToContactDto) {
-        return contactService.addCommentToContact(email, addCommentToContactDto);
+    @PostMapping("/{contactId}/comment")
+    public Boolean addCommentToContact(@PathVariable Long contactId,@RequestBody AddCommentToContactDto addCommentToContactDto) {
+        return contactService.addCommentToContact(contactId, addCommentToContactDto);
     }
 
-    @PutMapping("{email}/comment/{commentNumber}")
-    public Boolean updateCommentInContact(@PathVariable String email,@RequestBody UpdateCommentInContactDto updateCommentInContactDto) {
-        return contactService.updateCommentInContact(email, updateCommentInContactDto);
+    @PutMapping("{contactId}/comment/{commentId}")
+    public Boolean updateCommentInContact(@PathVariable Long contactId,@RequestBody UpdateCommentInContactDto updateCommentInContactDto) {
+        return contactService.updateCommentInContact(contactId, updateCommentInContactDto);
     }
 
-    @PutMapping("/{id}/reminder")
-    public Boolean addReminderToContact(@PathVariable String id,@RequestBody AddReminderToContactDto addReminderToContactDto) {
-        return contactService.addReminderToContact(id, addReminderToContactDto);
+    @PutMapping("/{contactId}/reminder")
+    public Boolean addReminderToContact(@PathVariable Long contactId,@RequestBody AddReminderToContactDto addReminderToContactDto) {
+        return contactService.addReminderToContact(contactId, addReminderToContactDto);
     }
 
-    @DeleteMapping("/contact/{email}")
-    public Boolean removeContact(@PathVariable String email) {
-        return contactService.removeContact(email);
+    @DeleteMapping("/contact/{contactId}")
+    public Boolean removeContact(@PathVariable Long contactId) {
+        return contactService.removeContact(contactId);
     }
 
-    @DeleteMapping("/{email}/comment/{id}")//Not sure please check API
-    public Boolean deleteCommentFromContact(@PathVariable String email,@PathVariable String id) {
-        return contactService.deleteCommentFromContact(email, id);
+    @DeleteMapping("/{contactId}/comment/{commentId}")//Not sure please check API
+    public Boolean deleteCommentFromContact(@PathVariable Long contactId,@PathVariable Long commentId) {
+        return contactService.deleteCommentFromContact(contactId, commentId);
     }
 
-    @DeleteMapping("/{email}/reminder/{id}")//Not sure please check API
-    public Boolean deleteReminderFromContact(@PathVariable String email,@RequestBody DeleteReminderFromContactDto deleteReminderFromContactDto) {
-        return contactService.deleteReminderFromContact(email, deleteReminderFromContactDto);
+    @DeleteMapping("/{contactId}/reminder/{reminderId}")
+    public Boolean deleteReminderFromContact(@PathVariable Long contactId,@PathVariable Long reminderId) {
+        return null;
     }
+
 }

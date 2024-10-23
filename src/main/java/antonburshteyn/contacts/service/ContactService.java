@@ -5,9 +5,9 @@ import antonburshteyn.contacts.dto.*;
 public interface ContactService {
     Boolean addNewContact(ContactDto contactDto);
 
-    Boolean unarchiveContact(String id);
+    Boolean unarchiveContact(Long contactId);
 
-    ContactDto getContactById(String email);
+    ContactDto getContactById(Long contactId);
 
     Iterable<ContactDto> getAllContactsPagination(int size, int page);
 
@@ -19,18 +19,18 @@ public interface ContactService {
 
     Iterable<ContactDto> getByStatus(String status);
 
-    Boolean updateContactById(String email, UpdateCommentInContactDto updateCommentInContactDto);
+    Boolean updateContactById(Long contactId, UpdateCommentInContactDto updateCommentInContactDto);
 
-    Boolean addCommentToContact(String email, AddCommentToContactDto addCommentToContactDto);
+    Boolean addCommentToContact(Long contactId, AddCommentToContactDto addCommentToContactDto);
 
-    Boolean updateCommentInContact(String email, UpdateCommentInContactDto updateCommentInContactDto);
+    Boolean updateCommentInContact(Long contactId, UpdateCommentInContactDto updateCommentInContactDto);
 
-    Boolean addReminderToContact(String id,AddReminderToContactDto addReminderToContactDto);
+    Boolean addReminderToContact(Long contactId,AddReminderToContactDto addReminderToContactDto);
 
-    Boolean removeContact(String email);
+    Boolean removeContact(Long contactId);
 
-    Boolean deleteCommentFromContact(String email, String id);
+    Boolean deleteCommentFromContact(Long contactId, Long commentId);
 
-    Boolean deleteReminderFromContact(String email,DeleteReminderFromContactDto deleteReminderFromContactDto);
+    Boolean deleteReminderFromContact(Long contactId,Long reminderId);
 
 }
