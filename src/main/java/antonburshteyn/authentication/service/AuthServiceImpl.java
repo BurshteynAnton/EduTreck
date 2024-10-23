@@ -1,9 +1,9 @@
 package antonburshteyn.authentication.service;
 
 import antonburshteyn.authentication.dao.UserAccountRepository;
-import antonburshteyn.authentication.dto.LoginDto;
 import antonburshteyn.authentication.dto.RegisterDto;
 import antonburshteyn.authentication.dto.UserDto;
+import antonburshteyn.authentication.dto.UserEditDto;
 import antonburshteyn.authentication.dto.exceptions.InvalidCredentialsException;
 import antonburshteyn.authentication.dto.exceptions.UserExistException;
 import antonburshteyn.authentication.dto.exceptions.UserNotFoundException;
@@ -14,27 +14,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService, CommandLineRunner {
 
-
     final UserAccountRepository userAccountRepository;
     final ModelMapper modelMapper;
     final PasswordEncoder passwordEncoder;
 
-//    @Override
-//    public UserDto register(RegisterDto registerDto) {
-//        if(userAccountRepository.existsById(registerDto.getUserName())) {
-//            throw new UserExistException();
-//        }
-//        UserAccount userAccount = modelMapper.map(registerDto, UserAccount.class);
-//        String password = passwordEncoder.encode(registerDto.getPassword());
-//        userAccount.setPassword(password);
-//        userAccountRepository.save(userAccount);
-//        return modelMapper.map(userAccount, UserDto.class);
-//    }
+    @Transactional
     @Override
     public UserDto register(RegisterDto registerDto) {
         if (userAccountRepository.existsByUserName(registerDto.getUserName())) {
@@ -56,49 +46,85 @@ public class AuthServiceImpl implements AuthService, CommandLineRunner {
                 .orElseThrow(UserNotFoundException::new);
         if (!passwordEncoder.matches(password, userAccount.getPassword())) {
             throw new InvalidCredentialsException();
-        }else if (!userName.matches(userAccount.getUsername())){
-            throw new UserExistException();
         }
 
         return modelMapper.map(userAccount, UserDto.class);
     }
 
+    @Transactional
     @Override
-    public UserDto deleteUser(Long userId) {
-        UserAccount userAccount = userAccountRepository.findById(userId)
+    public UserDto deleteUser(String userName) {
+        UserAccount userAccount = userAccountRepository.findByUserName(userName)
                 .orElseThrow(UserNotFoundException::new);
         userAccountRepository.delete(userAccount);
         return modelMapper.map(userAccount, UserDto.class);
     }
 
+    @Transactional
     @Override
-    public UserDto updateUser(String userId) {
-//        Long id = Long.parseLong(userId);
-//        UserAccount userAccount = userAccountRepository.findById(id)
-//                .orElseThrow(UserNotFoundException::new);
-//        userAccountRepository.delete(userAccount);
-//        return modelMapper.map(userAccount, UserAccount.class);
-        return null;
+    public UserDto updateUser(String userName, UserEditDto userEditDto) {
+        UserAccount userAccount = userAccountRepository.findByUserName(userName)
+                .orElseThrow(UserNotFoundException::new);
+
+        if (userEditDto.getName() != null && !userEditDto.getName().equals(userAccount.getName())) {
+            userAccount.setName(userEditDto.getName());
+        }
+        if (userEditDto.getSurname() != null && !userEditDto.getSurname().equals(userAccount.getSurname())) {
+            userAccount.setSurname(userEditDto.getSurname());
+        }
+        if (userEditDto.getPhoneNumber() != null && !userEditDto.getPhoneNumber().equals(userAccount.getPhoneNumber())) {
+            userAccount.setPhoneNumber(userEditDto.getPhoneNumber());
+        }
+        if (userEditDto.getEmail() != null && !userEditDto.getEmail().equals(userAccount.getEmail())) {
+            userAccount.setEmail(userEditDto.getEmail());
+        }
+
+        userAccountRepository.save(userAccount);
+        return modelMapper.map(userAccount, UserDto.class);
+    }
+
+    @Transactional
+    @Override
+    public void changePassword(String userName, String oldPassword, String newPassword) {
+        UserAccount userAccount = userAccountRepository.findByUserName(userName)
+                .orElseThrow(UserNotFoundException::new);
+        if (!passwordEncoder.matches(oldPassword, userAccount.getPassword())) {
+            throw new InvalidCredentialsException();
+        }
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+        userAccount.setPassword(encodedNewPassword);
+        userAccountRepository.save(userAccount);
     }
 
     @Override
-    public RegisterDto changePassword(String password) {
-        return null;
+    public UserDto getUserById(String userName) {
+        UserAccount userAccount = userAccountRepository.findByUserName(userName)
+                .orElseThrow(UserNotFoundException::new);
+        return modelMapper.map(userAccount, UserDto.class);
     }
 
+    @Transactional
     @Override
-    public UserDto getUserById(String userId) {
-        return null;
+    public Boolean addRole(String userName, String role) {
+        UserAccount userAccount = userAccountRepository.findByUserName(userName)
+                .orElseThrow(UserNotFoundException::new);
+        boolean roleAdded = userAccount.addRole(role);
+        if (roleAdded) {
+            userAccountRepository.save(userAccount);
+        }
+        return roleAdded;
     }
 
+    @Transactional
     @Override
-    public Boolean addRole(String user, String role) {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteRole(String user, String role) {
-        return null;
+    public Boolean deleteRole(String userName, String role) {
+        UserAccount userAccount = userAccountRepository.findByUserName(userName)
+                .orElseThrow(UserNotFoundException::new);
+        boolean removedRole = userAccount.removeRole(role);
+        if (removedRole) {
+            userAccountRepository.save(userAccount);
+        }
+        return removedRole;
     }
 
     @Override
@@ -110,6 +136,5 @@ public class AuthServiceImpl implements AuthService, CommandLineRunner {
             userAccount.addRole(Role.ADMINISTRATOR.name());
             userAccountRepository.save(userAccount);
         }
-
     }
 }

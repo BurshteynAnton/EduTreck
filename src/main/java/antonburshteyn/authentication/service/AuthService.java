@@ -1,22 +1,24 @@
 package antonburshteyn.authentication.service;
 
+import antonburshteyn.authentication.dto.ChangePasswordDto;
 import antonburshteyn.authentication.dto.RegisterDto;
 import antonburshteyn.authentication.dto.UserDto;
+import antonburshteyn.authentication.dto.UserEditDto;
 
 public interface AuthService {
     UserDto register (RegisterDto registerDto);
 
     UserDto login (String userName, String password);
 
-    UserDto deleteUser (Long userId);
+    UserDto deleteUser (String userName);
 
-    UserDto updateUser(String userId);
+    UserDto updateUser(String userName, UserEditDto userEditDto);
 
-    RegisterDto changePassword(String password);
+    void changePassword(String userName,  String oldPassword, String newPassword);
 
-    UserDto getUserById(String userId);
+    UserDto getUserById(String userName);
 
-    Boolean addRole(String user, String role);
+    Boolean addRole(String userName, String role);
 
-    Boolean deleteRole(String user, String role);
+    Boolean deleteRole(String userName, String role);
 }

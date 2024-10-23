@@ -1,11 +1,11 @@
 package antonburshteyn.authentication.controller;
 
-import antonburshteyn.authentication.dto.LoginDto;
-import antonburshteyn.authentication.dto.RegisterDto;
-import antonburshteyn.authentication.dto.UserDto;
+import antonburshteyn.authentication.dto.*;
 import antonburshteyn.authentication.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,36 +21,36 @@ public class AuthController {
 
     @PostMapping("/login")
     public UserDto login(@RequestBody LoginDto loginDto) {
-        return authService.login(loginDto.getUsername(), loginDto.getPassword());
+        return authService.login(loginDto.getUserName(), loginDto.getPassword());
     }
 
-    @DeleteMapping("/user/{userId}")
-    public UserDto deleteUser(@PathVariable Long userId) {
-        return authService.deleteUser(userId);
+    @DeleteMapping("/user/{userName}")
+    public UserDto deleteUser(@PathVariable String userName) {
+        return authService.deleteUser(userName);
     }
 
-    @PutMapping("/user/{userId}")
-    public UserDto updateUser(@PathVariable String userId) {
-        return authService.updateUser(userId);
+    @PutMapping("/user/{userName}")
+    public UserDto updateUser(@PathVariable String userName,@RequestBody UserEditDto userEditDto) {
+        return authService.updateUser(userName, userEditDto);
     }
 
-    @GetMapping("/password")
-    public RegisterDto changePassword(String password) {
-        return authService.changePassword(password);
+    @PutMapping("/password/{userName}")
+    public void changePassword(Principal principal, @RequestBody ChangePasswordDto changePasswordDto) {
+        authService.changePassword(principal.getName(), changePasswordDto.getOldPassword(), changePasswordDto.getNewPassword());
     }
 
-    @GetMapping("/user/{userId}")
-    public UserDto getUserById(@PathVariable String userId) {
-        return authService.getUserById(userId);
+    @GetMapping("/user/{userName}")
+    public UserDto getUserById(@PathVariable String userName) {
+        return authService.getUserById(userName);
     }
 
-    @PutMapping("/user/{user}/role/{role}")
-    public Boolean addRole(@PathVariable String user,@PathVariable String role) {
-        return authService.addRole(user, role);
+    @PutMapping("/user/{userName}/role/{role}")
+    public Boolean addRole(@PathVariable String userName,@PathVariable String role) {
+        return authService.addRole(userName, role);
     }
 
-    @DeleteMapping("/user/{user}/role/{role}")
-    public Boolean deleteRole(String user, String role) {
-        return authService.deleteRole(user, role);
+    @DeleteMapping("/user/{userName}/role/{role}")
+    public Boolean deleteRole(@PathVariable String userName,@PathVariable String role) {
+        return authService.deleteRole(userName, role);
     }
 }
