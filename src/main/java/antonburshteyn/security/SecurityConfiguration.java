@@ -39,6 +39,38 @@ public class SecurityConfiguration {
                 .hasRole("ADMINISTRATOR")
                     .anyRequest().authenticated()
 
+                // Security rules for ContactController
+                    .requestMatchers(HttpMethod.POST, "/contact")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.POST, "/contact/{contactId}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.GET, "/contact/{contactId}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.GET, "/contact/{size}/{page}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.GET, "/contact/all")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.GET, "/contact/name/{name}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.GET, "/contact/lastName/{lastName}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.GET, "/contact/status/{status}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.PUT, "/contact/{contactId}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.POST, "/contact/{contactId}/comment")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.PUT, "/contact/{contactId}/comment/{commentId}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.PUT, "/contact/{contactId}/reminder")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.DELETE, "/contact/{contactId}")
+                .hasRole("ADMINISTRATOR") // Remove contact
+                    .requestMatchers(HttpMethod.DELETE, "/contact/{contactId}/comment/{commentId}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+                    .requestMatchers(HttpMethod.DELETE, "/contact/{contactId}/reminder/{reminderId}")
+                .hasAnyRole("USER", "ADMINISTRATOR")
+
 
         );
         return http.build();

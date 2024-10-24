@@ -13,12 +13,14 @@ import java.util.List;
 public class UpdateContactByIdDto {
     String name;
     String surname;
-    String phoneNumber;
+    String phone;
     String email;
     String place;
     String course;
     String source;
     String status;
     @Singular
-    List<ContactCommentsDto> contactComments;
+    List<ContactCommentsDto> comments;
+    @Singular
+    List<ReminderDto> reminders;
 }

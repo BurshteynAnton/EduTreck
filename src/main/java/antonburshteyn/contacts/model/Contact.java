@@ -1,12 +1,12 @@
 package antonburshteyn.contacts.model;
 
-import antonburshteyn.contacts.dto.AddCommentToContactDto;
-import antonburshteyn.contacts.dto.ReminderDto;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -34,12 +34,25 @@ public class Contact implements Serializable {
     String source;
     String status;
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Singular
-    List<Comment> comments;
+    @Column(nullable = false)
+    boolean archived;
 
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
     @Singular
-    List<Reminder> reminders;
+    Map<String, Comment> comments = new HashMap<>();
 
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Singular
+    Map<String, Reminder> reminders;
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void archive() {
+        this.archived = true;
+    }
+    public void unarchive() {
+        this.archived = false;
+    }
 }

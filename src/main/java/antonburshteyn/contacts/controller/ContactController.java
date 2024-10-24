@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/contact")
-public class ContactController implements ContactService {
+public class ContactController {
     final ContactService contactService;
 
     @PostMapping
-    public Boolean addNewContact(@RequestBody ContactDto contactDto) {
+    public ContactDto addNewContact(@RequestBody ContactDto contactDto) {
         return contactService.addNewContact(contactDto);
     }
 
@@ -41,7 +41,7 @@ public class ContactController implements ContactService {
         return contactService.findContactByName(name);
     }
 
-    @GetMapping("/lastName/{lastname}")
+    @GetMapping("/lastName/{lastName}")
     public Iterable<ContactDto> findContactByLastName(@PathVariable String lastName) {
         return contactService.findContactByLastName(lastName);
     }
@@ -52,38 +52,38 @@ public class ContactController implements ContactService {
     }
 
    @PutMapping("/{contactId}")
-    public Boolean updateContactById(@PathVariable Long contactId,@RequestBody UpdateCommentInContactDto updateCommentInContactDto) {
-        return contactService.updateContactById(contactId, updateCommentInContactDto);
+    public ContactDto updateContactById(@PathVariable Long contactId,@RequestBody UpdateContactByIdDto updateContactByIdDto) {
+        return contactService.updateContactById(contactId, updateContactByIdDto);
     }
 
     @PostMapping("/{contactId}/comment")
-    public Boolean addCommentToContact(@PathVariable Long contactId,@RequestBody AddCommentToContactDto addCommentToContactDto) {
+    public ContactDto addCommentToContact(@PathVariable Long contactId,@RequestBody AddCommentToContactDto addCommentToContactDto) {
         return contactService.addCommentToContact(contactId, addCommentToContactDto);
     }
 
     @PutMapping("{contactId}/comment/{commentId}")
-    public Boolean updateCommentInContact(@PathVariable Long contactId,@RequestBody UpdateCommentInContactDto updateCommentInContactDto) {
+    public ContactDto updateCommentInContact(@PathVariable Long contactId,@RequestBody UpdateCommentInContactDto updateCommentInContactDto) {
         return contactService.updateCommentInContact(contactId, updateCommentInContactDto);
     }
 
     @PutMapping("/{contactId}/reminder")
-    public Boolean addReminderToContact(@PathVariable Long contactId,@RequestBody AddReminderToContactDto addReminderToContactDto) {
+    public ContactDto addReminderToContact(@PathVariable Long contactId,@RequestBody AddReminderToContactDto addReminderToContactDto) {
         return contactService.addReminderToContact(contactId, addReminderToContactDto);
     }
 
-    @DeleteMapping("/contact/{contactId}")
-    public Boolean removeContact(@PathVariable Long contactId) {
+    @DeleteMapping("/{contactId}")
+    public ContactDto removeContact(@PathVariable Long contactId) {
         return contactService.removeContact(contactId);
     }
 
     @DeleteMapping("/{contactId}/comment/{commentId}")//Not sure please check API
-    public Boolean deleteCommentFromContact(@PathVariable Long contactId,@PathVariable Long commentId) {
+    public ContactDto deleteCommentFromContact(@PathVariable Long contactId,@PathVariable Long commentId) {
         return contactService.deleteCommentFromContact(contactId, commentId);
     }
 
     @DeleteMapping("/{contactId}/reminder/{reminderId}")
-    public Boolean deleteReminderFromContact(@PathVariable Long contactId,@PathVariable Long reminderId) {
-        return null;
+    public ContactDto deleteReminderFromContact(@PathVariable Long contactId,@PathVariable Long reminderId) {
+        return contactService.deleteReminderFromContact(contactId, reminderId);
     }
 
 }

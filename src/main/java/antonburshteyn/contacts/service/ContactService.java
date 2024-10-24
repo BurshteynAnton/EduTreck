@@ -3,7 +3,7 @@ package antonburshteyn.contacts.service;
 import antonburshteyn.contacts.dto.*;
 
 public interface ContactService {
-    Boolean addNewContact(ContactDto contactDto);
+    ContactDto addNewContact(ContactDto contactDto);
 
     Boolean unarchiveContact(Long contactId);
 
@@ -19,18 +19,18 @@ public interface ContactService {
 
     Iterable<ContactDto> getByStatus(String status);
 
-    Boolean updateContactById(Long contactId, UpdateCommentInContactDto updateCommentInContactDto);
+    ContactDto updateContactById(Long contactId, UpdateContactByIdDto updateContactByIdDto);
 
-    Boolean addCommentToContact(Long contactId, AddCommentToContactDto addCommentToContactDto);
+    ContactDto addCommentToContact(Long contactId, AddCommentToContactDto addCommentToContactDto);
 
-    Boolean updateCommentInContact(Long contactId, UpdateCommentInContactDto updateCommentInContactDto);
+    ContactDto updateCommentInContact(Long contactId, UpdateCommentInContactDto updateCommentInContactDto);
 
-    Boolean addReminderToContact(Long contactId,AddReminderToContactDto addReminderToContactDto);
+    ContactDto addReminderToContact(Long contactId,AddReminderToContactDto addReminderToContactDto);
 
-    Boolean removeContact(Long contactId);
+    ContactDto removeContact(Long contactId);
 
-    Boolean deleteCommentFromContact(Long contactId, Long commentId);
+    ContactDto deleteCommentFromContact(Long contactId, Long commentId);
 
-    Boolean deleteReminderFromContact(Long contactId,Long reminderId);
+    ContactDto deleteReminderFromContact(Long contactId,Long reminderId);
 
 }
